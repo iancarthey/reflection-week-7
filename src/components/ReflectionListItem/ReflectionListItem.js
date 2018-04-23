@@ -10,7 +10,8 @@ class ReflectionListItem extends Component{
     constructor(props){
         super(props);
         this.state = {
-            bookmarked: false
+            bookmarked: false,
+            id: 0
         }
     }
     deleteReflection = (reflection) => {
@@ -22,8 +23,10 @@ class ReflectionListItem extends Component{
 
     bookmarkReflection = (reflection) => {
         this.setState({
-            bookmarked: !this.state.bookmarked
+            bookmarked: !this.state.bookmarked,
+            id: reflection.id
         })
+        console.log(this.state);
         this.props.dispatch({
             type: 'BOOKMARK_REFLECTION',
             payload: this.state

@@ -37,6 +37,7 @@ router.delete('/', (req, res) => {
 
 router.put('/', (req, res) => {
     updateBookmark = req.body;
+    console.log(updateBookmark)
     const queryText = 'UPDATE reflection SET "bookmarked" = $1 WHERE "id" = $2';
     pool.query(queryText, [updateBookmark.bookmarked, req.query.id])
     .then(() => {
