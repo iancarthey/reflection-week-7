@@ -17,24 +17,67 @@ const sagaMiddleware = createSagaMiddleware();
 function* rootSaga(){
     yield takeEvery('ADD_REFLECTION', addReflectionSaga)
     yield takeEvery('FETCH_REFLECTION', getReflectionSaga)
+    yield takeEvery('DELETE_REFLECTION', deleteReflectionSaga)
+    yield takeEvery('BOOKMARK_REFLECTION', bookmarkReflectionSaga)
 }
 
 function* addReflectionSaga( action ){
-    const reflectionToAdd = yield call(axios.post, '/reflection', action.payload);
-    yield put({
-        action: 'FETCH_REFLECTION'
-    })
+   try{ 
+        yield call(axios.post, '/reflection', action.payload);
+        yield put({
+            type: 'FETCH_REFLECTION'
+        })
+    } catch (error){
+
+    }
 }
 
 function* getReflectionSaga( action ){
-    yield put({
-        action: 'SET_REFLECTION'
-    })
+    try{ 
+        const reflectionResponse = yield call(axios.get, '/reflection')
+        yield put({
+            type: 'SET_REFLECTION',
+            payload: reflectionResponse.data
+        })
+    } catch (error){
+
+}
+}
+
+function* deleteReflectionSaga( action ){
+    try{
+        yield call(axios.delete, `/reflection/?id=${action.payload.id}`)
+        yield put({
+            type: 'FETCH_REFLECTION'
+        })
+    } catch (error) {
+
+    }
+}
+
+function* bookmarkReflectionSaga(action) {
+    try{
+        yield call(axios.put, `/reflection/?id=${action.payload.id}`, action.payload)
+        yield put({
+            type: 'FETCH_REFLECTION'
+        })
+    } catch (error){
+
+    }
+}
+
+const reflectionList = (state = [], action) => {
+    switch(action.type){
+        case 'SET_REFLECTION':
+            return action.payload;
+        default:
+            return state;
+    }
 }
 
 //create store
 const store = createStore (
-    combineReducers({ }),
+    combineReducers({ reflectionList }),
     applyMiddleware(sagaMiddleware, logger)
 )
 

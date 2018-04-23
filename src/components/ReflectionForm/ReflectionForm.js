@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import './ReflectionForm.css';
+
+const mapStateToProps = reduxState => ({
+    reduxState,
+});
 
 class ReflectionForm extends Component{
 
@@ -16,8 +22,8 @@ class ReflectionForm extends Component{
     handleChangeFor = (propertyName) => {
         return (event) => {
           this.setState({
-            newPlant: {
-            ...this.state.newPlant,
+            newReflection: {
+            ...this.state.newReflection,
             [propertyName]: event.target.value
             }
           })
@@ -31,14 +37,17 @@ class ReflectionForm extends Component{
 
     render(){
         return(
-            <form onSubmit={this.addNewReflection}>
+            <form onSubmit={this.addNewReflection} className="formDiv">
                 <p>Topic</p>
                 <input onChange={this.handleChangeFor("topic")} />
                 <p>Reflection</p>
-                <input onChange={this.handleChangeFor("reflectionBody")} />
+                <input onChange={this.handleChangeFor("reflectionBody")} id="reflectionInputBox"/>
                 <br />
                 <input type="submit" value="Add new reflection" />
             </form>
         )
     }
 }
+
+
+export default connect(mapStateToProps)(ReflectionForm);
