@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './ReflectionListItem.css';
 
+//connect redux
 const mapStateToProps = reduxState => ({
     reduxState,
 });
@@ -14,6 +15,8 @@ class ReflectionListItem extends Component{
             id: 0
         }
     }
+
+    //DELETE REFLECTION FUNCTION
     deleteReflection = (reflection) => {
         this.props.dispatch({
             type: 'DELETE_REFLECTION',
@@ -21,6 +24,7 @@ class ReflectionListItem extends Component{
         })
     }
 
+    //BOOKMARK FUNCTION
     bookmarkReflection = (reflection) => {
         this.setState({
             bookmarked: !this.state.bookmarked,

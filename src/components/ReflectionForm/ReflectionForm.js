@@ -18,7 +18,7 @@ class ReflectionForm extends Component{
             }
         }
     }
-
+//FUNCTION FOR UPDATING STATE WITH INPUT FIELDS
     handleChangeFor = (propertyName) => {
         return (event) => {
           this.setState({
@@ -29,7 +29,7 @@ class ReflectionForm extends Component{
           })
         }
       }
-
+//FUNCTION FOR SENDING DISPATCH TO ADD REFLECTION
       addNewReflection = event => {
         event.preventDefault();
         this.props.dispatch({ type: 'ADD_REFLECTION', payload: this.state.newReflection })

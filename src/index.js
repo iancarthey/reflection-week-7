@@ -21,6 +21,7 @@ function* rootSaga(){
     yield takeEvery('BOOKMARK_REFLECTION', bookmarkReflectionSaga)
 }
 
+//add reflection generator function
 function* addReflectionSaga( action ){
    try{ 
         yield call(axios.post, '/reflection', action.payload);
@@ -32,6 +33,7 @@ function* addReflectionSaga( action ){
     }
 }
 
+//GET REFLECTION GENERATOR FUNCTION
 function* getReflectionSaga( action ){
     try{ 
         const reflectionResponse = yield call(axios.get, '/reflection')
@@ -44,6 +46,7 @@ function* getReflectionSaga( action ){
 }
 }
 
+//DELETE GENERATOR FUNCTION
 function* deleteReflectionSaga( action ){
     try{
         yield call(axios.delete, `/reflection/?id=${action.payload.id}`)
@@ -55,6 +58,7 @@ function* deleteReflectionSaga( action ){
     }
 }
 
+//UPDATE BOOKMARKED FOR GENERATOR FUNCTION
 function* bookmarkReflectionSaga(action) {
     try{
         yield call(axios.put, `/reflection/?id=${action.payload.id}`, action.payload)
@@ -66,6 +70,7 @@ function* bookmarkReflectionSaga(action) {
     }
 }
 
+//REFLECTION LIST REDUCER
 const reflectionList = (state = [], action) => {
     switch(action.type){
         case 'SET_REFLECTION':

@@ -3,6 +3,8 @@ const router = require('express').Router()
 const pool = require('../modules/pool')
 //sources in pool.js
 
+
+//GET REQUEST FOR REFLECTIONS
 router.get('/', (req,res)=>{
     const queryText = 'SELECT * from reflection'
     pool.query(queryText).then((response)=>{
@@ -13,6 +15,7 @@ router.get('/', (req,res)=>{
     });
 });//end router.get
 
+//POST REQUEST FOR NEW REFLECTION
 router.post('/', (req, res)=>{
     const newReflection = req.body;
     console.log(newReflection)
@@ -26,6 +29,7 @@ router.post('/', (req, res)=>{
     })
 })
 
+//DELETE REQUEST FOR REMOVING REFLECTION
 router.delete('/', (req, res) => {
     const queryText = 'DELETE FROM reflection WHERE id=$1';
     pool.query(queryText, [req.query.id]).then(() => {
@@ -35,6 +39,7 @@ router.delete('/', (req, res) => {
     })
 })
 
+//PUT REQUEST FOR UPDATING BOOKMARKED 
 router.put('/', (req, res) => {
     updateBookmark = req.body;
     console.log(updateBookmark)

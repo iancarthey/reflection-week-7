@@ -12,6 +12,7 @@ const mapStateToProps = reduxState => ({
 
 
 class App extends Component {
+  //get reflections on page load
   componentDidMount() {
     this.props.dispatch({
         type: 'FETCH_REFLECTION'
